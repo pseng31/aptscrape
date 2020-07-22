@@ -1287,13 +1287,29 @@ colnames(aptdata) <- c("DATE","APT","FLOORPLAN","RENT","BED","BATH","SQFT",
                        "AVAILABILITY")
 # aptdata
 
-#Append to CSV
-write.table( aptdata,
-             file="C:/Users/pseng/Documents/Apt CSV/apt_daily_data_1bd.csv",
-             append = T,
-             sep=',',
-             row.names=F,
-             col.names=F )
+# Append to CSV
+# write.table( aptdata,
+#              file="C:/Users/pseng/Documents/Apt CSV/apt_daily_data_1bd.csv",
+#              append = T,
+#              sep=',',
+#              row.names=F,
+#              col.names=F )
+
+# Append to Google Sheets
+if(!require(googlesheets)){
+  install.packages("googlesheets")
+}
+
+library(googlesheets)
+
+gs_auth(key = "824009897553-jh5de5r7n0e4948drm30nu966grt5hi2.apps.googleusercontent.com",
+        secret = "8UyZYWxIEVAduQRYr8Wya9uD" 
+)
+
+mykey <- "1gBzWMdvlhQGt7O3QZpBEqsyvcYCrpnslC25Zpw5x3Bg"
+gs_key(mykey)
+mytitle <- gs_title("AptData")
+gs_add_row(mytitle,ws=1,input = aptdata)
 
 #-------------------------------- REFERENCES --------------------------------#
 
